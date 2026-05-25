@@ -1,4 +1,4 @@
-import { User, UserPlus } from "lucide-react";
+import { Mail, User, UserPlus, Lock, Eye } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -61,23 +61,77 @@ function Register() {
               />
             </div>
 
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={form.email}
-              onChange={handleChange}
-              className="w-full mb-4 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
-            />
+            {/* Email input */}
 
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={form.password}
-              onChange={handleChange}
-              className="w-full mb-6 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
-            />
+            <label className="block text-[14px] font-black text-slate-400 uppercase-widest mb-1 ml-1">
+              Email Address
+            </label>
+            <div className="relative group mb-4">
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-blue-400 transition-colors">
+                <Mail size={18} />
+              </div>
+              <input
+                type="email"
+                name="email"
+                value={form.email}
+                placeholder="example@gmail.com"
+                required
+                onChange={handleChange}
+                className="w-full pl-11 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+              />
+            </div>
+
+            {/* Password Input */}
+
+            <label className="block text-[14px] font-black text-slate-400 uppercase-widest mb-1 ml-1">
+              Password
+            </label>
+            <div className="relative group mb-4">
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-blue-400 transition-colors">
+                <Lock size={18} />
+              </div>
+              <input
+                type="password"
+                name="password"
+                value={form.password}
+                placeholder="Password"
+                required
+                onChange={handleChange}
+                className="w-full pl-11 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+              />
+              <button
+                type="button "
+                className="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 hover:text-slate-600 transition-colors cursor-pointer"
+              >
+                <Eye size={18} />
+              </button>
+            </div>
+
+            {/* Confirm Password Input */}
+
+            <label className="block text-[14px] font-black text-slate-400 uppercase-widest mb-1 ml-1">
+              Confirm Password
+            </label>
+            <div className="relative group mb-4">
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-blue-400 transition-colors">
+                <Lock size={18} />
+              </div>
+              <input
+                type="password"
+                name="password"
+                value={form.password}
+                placeholder="Password"
+                required
+                onChange={handleChange}
+                className="w-full pl-11 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+              />
+              <button
+                type="button "
+                className="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 hover:text-slate-600 transition-colors cursor-pointer"
+              >
+                <Eye size={18} />
+              </button>
+            </div>
 
             <button
               type="submit"
@@ -87,9 +141,9 @@ function Register() {
               Register
             </button>
             <p className="text-center mt-2">
-              Already have an account?
+              Already Verified?
               <Link to="/" className="text-green-500">
-                Login
+                Sign In
               </Link>
             </p>
           </form>
