@@ -1,15 +1,18 @@
-const app = require('./app');
-require('dotenv').config();
+import express from 'express';
+import dotenv from 'dotenv';
+import { connectDB } from './config/db.js';
+dotenv.config();
 
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 5000;
 
-const server = app.listen(PORT, () => {
-  console.log(
-    `Server listening in ${process.env.NODE_ENV} mode on port ${PORT} `,
-  );
+const app = express();
+
+app.get('/', (req, res) => {
+  res.send('Hello World!');
 });
 
-process.on('unhandledRejection', (err) => {
-  console.log('Error' + err.message);
-  server.close(() => process.exit(1));
+connectDB();
+
+app.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}`);
 });
