@@ -15,14 +15,13 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
+      select: true,
     },
   },
   { timeseries: true },
 );
 
-userSchema.methods.matchPassword = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password);
-};
+
 
 const User = mongoose.model('User', userSchema);
 

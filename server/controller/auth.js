@@ -44,9 +44,10 @@ export const SignIn = async (req, res) => {
         .status(404)
         .json({ success: false, message: 'Please fill all the fields!' });
     }
-    const user = User.findOne({ email });
+    const user = await User.findOne({ email });
 
-    if (!user || !(await user.matchPassword(password))) {
+    
+    if (!user || !(await bcrypt.compare(password, user.password))) {
       return res.status(401).json({ massege: 'Invalid Credentials' });
     }
 
