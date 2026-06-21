@@ -4,6 +4,7 @@ import { generateToken } from '../utils/Createtoken.js';
 
 // Sign Up
 export const SignUp = async (req, res) => {
+  console.log("signup")
   const { username, email, password } = req.body;
 
   try {
@@ -14,7 +15,7 @@ export const SignUp = async (req, res) => {
       password: hashpassword,
     });
 
-    const token = generateToken(newuser._id);
+    const token = generateToken(newuser._id, res);
     newuser.token = token;
 
     await newuser.save();
@@ -46,12 +47,11 @@ export const SignIn = async (req, res) => {
     }
     const user = await User.findOne({ email });
 
-    
     if (!user || !(await bcrypt.compare(password, user.password))) {
       return res.status(401).json({ massege: 'Invalid Credentials' });
     }
 
-    const token = generateToken(user._id);
+    const token = generateToken(user._id, res);
     res.status(201).json({
       id: user._id,
       username: user.username,

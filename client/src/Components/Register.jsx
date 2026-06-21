@@ -1,12 +1,12 @@
-import { Mail, User, UserPlus, Lock, Eye } from "lucide-react";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Mail, User, UserPlus, Lock, Eye } from 'lucide-react';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Register() {
   const [form, setForm] = useState({
-    name: "",
-    email: "",
-    password: "",
+    name: '',
+    email: '',
+    password: '',
   });
 
   const handleChange = (e) => {
@@ -14,15 +14,20 @@ function Register() {
       ...form,
       [e.target.name]: e.target.value,
     });
-    console.log(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Register Data: ", form);
 
-    // Here should connect to the backend
-    // fetch("/register" , {method: "POST" , body: JSON.stringify(form)})
+    try {
+      await axios.post('/api/users/register', form);
+      // localStorage.setItem('token', res.data.token);
+
+      // setUser(res.data);
+      navigate('/');
+    } catch (error) {
+      console.error(error.response?.data?.message || 'Registeration failed!');
+    }
   };
 
   return (
@@ -31,7 +36,7 @@ function Register() {
         <div className="bg-white p-8 rounded-2xl shadow-md w-90">
           <div className="flex items-center justify-center mb-4 ">
             <div className="inline-flex items-center justify-center text-center w-12 h-12 rounded-[1.2rem] bg-green-500 text-white shadow-xl">
-              <UserPlus size={28} strokeWidth={2} />{" "}
+              <UserPlus size={28} strokeWidth={2} />{' '}
             </div>
           </div>
 
@@ -55,6 +60,7 @@ function Register() {
                 name="name"
                 value={form.name}
                 placeholder="Your Name"
+                autoComplete="off"
                 required
                 onChange={handleChange}
                 className="w-full pl-11 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
@@ -75,6 +81,7 @@ function Register() {
                 name="email"
                 value={form.email}
                 placeholder="example@gmail.com"
+                autoComplete="off"
                 required
                 onChange={handleChange}
                 className="w-full pl-11 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"

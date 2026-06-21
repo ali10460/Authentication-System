@@ -1,14 +1,15 @@
-import { useState } from "react";
+import { useState } from 'react';
+import { data, Link, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { AlertCircle, Eye, Lock, LogIn, Mail, User } from 'lucide-react';
+import axios from 'axios';
 
-import { data, Link, useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
+function Login({ setUser }) {
+  const navigate = useNavigate();
 
-import { AlertCircle, Eye, Lock, LogIn, Mail, User } from "lucide-react";
-
-function Login() {
   const [form, setForm] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const handleChange = (e) => {
@@ -20,11 +21,22 @@ function Login() {
 
   const redirect = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (form.email == "" || form.password == "") {
-      console.log("please fill the inputs!");
-    } else console.log("Login Data: ", form);
+
+    try {
+      const res = await axios.post('/api/users/', form);
+      localStorage.setItem('token', res.data.token);
+      console.log(res.data);
+      setUser(res.data);
+      navigate('/');
+    } catch (error) {
+      console.error(error.response?.data?.message || 'Login failed!');
+    }
+
+    if (form.email == '' || form.password == '') {
+      console.log('please fill the inputs!');
+    } else console.log('Login Data: ', form);
 
     // if (email == "alireza@gmail.com" && password == "12345") {
     //   document.cookie =
@@ -49,7 +61,7 @@ function Login() {
         <div className="bg-white p-8 rounded-2xl shadow-md w-90">
           <div className="flex items-center justify-center mb-4 ">
             <div className="inline-flex items-center justify-center text-center w-12 h-12 rounded-[1.2rem] bg-blue-600 text-white shadow-xl">
-              <LogIn size={28} strokeWidth={2} />{" "}
+              <LogIn size={28} strokeWidth={2} />{' '}
             </div>
           </div>
 
@@ -64,7 +76,12 @@ function Login() {
             </p>
           </div> */}
 
-          <form action="/" method="POST" className="space-y-5">
+          <form
+            action="/"
+            method="POST"
+            onSubmit={handleSubmit}
+            className="space-y-5"
+          >
             <div>
               {/* Email input */}
 
@@ -80,6 +97,7 @@ function Login() {
                   name="email"
                   value={form.email}
                   placeholder="example@gmail.com"
+                  autoComplete="off"
                   required
                   onChange={handleChange}
                   className="w-full pl-11 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
