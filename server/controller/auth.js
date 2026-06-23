@@ -4,9 +4,8 @@ import { generateToken } from '../utils/Createtoken.js';
 
 // Sign Up
 export const SignUp = async (req, res) => {
-  console.log("signup")
-  const { username, email, password } = req.body;
 
+  const { username, email, password } = req.body;
   try {
     const hashpassword = bcrypt.hashSync(password, 10);
     const newuser = await User({
@@ -21,8 +20,8 @@ export const SignUp = async (req, res) => {
     await newuser.save();
     if (!newuser) {
       return res
-        .status(404)
-        .json({ success: false, message: 'User is not found' });
+        .status(400)
+        .json({ success: false, message: 'You are not registered!' });
     }
 
     res.json({
@@ -32,6 +31,10 @@ export const SignUp = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
   }
 };
 

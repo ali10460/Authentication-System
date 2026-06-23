@@ -15,13 +15,11 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
-      select: true,
+      // select: true,
     },
   },
   { timeseries: true },
 );
-
-
 
 const User = mongoose.model('User', userSchema);
 
