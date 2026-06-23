@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { data, Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { AlertCircle, Eye, Lock, LogIn, Mail, User } from 'lucide-react';
@@ -25,34 +25,12 @@ function Login({ setUser }) {
     e.preventDefault();
 
     try {
-      const res = await axios.post('/api/users/', form);
-      localStorage.setItem('token', res.data.token);
-      console.log(res.data);
-      setUser(res.data);
-      navigate('/');
+      await axios.post('/api/users/', form);
+      console.log('Login successfull');
+      redirect('/dashboard');
     } catch (error) {
-      console.error(error.response?.data?.message || 'Login failed!');
+      console.log(error);
     }
-
-    if (form.email == '' || form.password == '') {
-      console.log('please fill the inputs!');
-    } else console.log('Login Data: ', form);
-
-    // if (email == "alireza@gmail.com" && password == "12345") {
-    //   document.cookie =
-    //     "email=alireza@gmail.com; expires=Thu, 18 Dec 2026 12:00:00 UTC; path=/";
-    //   redirect("./dashboard");
-    // } else {
-    //   Swal.fire({
-    //     title: "خطا!",
-    //     text: "شما عضو نیستید",
-    //     icon: "error",
-    //     confirmButtonText: "بستن",
-    //   });
-    // }
-
-    //  Here should connect to the backend
-    // fetch("/login" , {method: "POST" , body: JSON.stringify(form) })
   };
 
   return (

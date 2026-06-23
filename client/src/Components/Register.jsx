@@ -21,14 +21,10 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post('/api/users/register', {
-      username: form.username,
-      email: form.email,
-      password: form.password,
-    });
+    await axios.post('/api/users/register', form);
 
     try {
-      console.log('iieie');
+      console.log('موفقانه راجستر شدید');
     } catch (error) {
       console.log(error);
     }
