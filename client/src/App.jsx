@@ -11,26 +11,26 @@ function App() {
   const [user, setUser] = useState(null);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const token = localStorage.getItem('token');
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     const token = localStorage.getItem('token');
 
-      console.log(token);
-      console.log("Hello")
-      if (token) {
-        try {
-          const res = await axios.get('/api/user/me');
-          Headers: {
-            Authorization: `Bearer ${token}`;
-            setUser(res.data);
-          }
-        } catch (error) {
-          setError('Failed to fetch user data');
-          localStorage.removeItem('token');
-        }
-      }
-    };
-  });
+  //     console.log(token);
+  //     console.log("Hello")
+  //     if (token) {
+  //       try {
+  //         const res = await axios.get('/api/user/me');
+  //         Headers: {
+  //           Authorization: `Bearer ${token}`;
+  //           setUser(res.data);
+  //         }
+  //       } catch (error) {
+  //         setError('Failed to fetch user data');
+  //         localStorage.removeItem('token');
+  //       }
+  //     }
+  //   };
+  // });
 
   return (
     <>

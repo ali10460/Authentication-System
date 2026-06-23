@@ -1,10 +1,11 @@
+import axios from 'axios';
 import { Mail, User, UserPlus, Lock, Eye } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function Register() {
   const [form, setForm] = useState({
-    name: '',
+    username: '',
     email: '',
     password: '',
   });
@@ -16,17 +17,20 @@ function Register() {
     });
   };
 
+  // };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    await axios.post('/api/users/register', {
+      username: form.username,
+      email: form.email,
+      password: form.password,
+    });
 
     try {
-      await axios.post('/api/users/register', form);
-      // localStorage.setItem('token', res.data.token);
-
-      // setUser(res.data);
-      navigate('/');
+      console.log('iieie');
     } catch (error) {
-      console.error(error.response?.data?.message || 'Registeration failed!');
+      console.log(error);
     }
   };
 
@@ -57,8 +61,7 @@ function Register() {
               </div>
               <input
                 type="text"
-                name="name"
-                value={form.name}
+                name="username"
                 placeholder="Your Name"
                 autoComplete="off"
                 required
@@ -79,7 +82,6 @@ function Register() {
               <input
                 type="email"
                 name="email"
-                value={form.email}
                 placeholder="example@gmail.com"
                 autoComplete="off"
                 required
@@ -100,7 +102,6 @@ function Register() {
               <input
                 type="password"
                 name="password"
-                value={form.password}
                 placeholder="Password"
                 required
                 onChange={handleChange}
@@ -116,7 +117,7 @@ function Register() {
 
             {/* Confirm Password Input */}
 
-            <label className="block text-[14px] font-black text-slate-400 uppercase-widest mb-1 ml-1">
+            {/* <label className="block text-[14px] font-black text-slate-400 uppercase-widest mb-1 ml-1">
               Confirm Password
             </label>
             <div className="relative group mb-4">
@@ -138,7 +139,7 @@ function Register() {
               >
                 <Eye size={18} />
               </button>
-            </div>
+            </div> */}
 
             <button
               type="submit"

@@ -4,6 +4,7 @@ import { generateToken } from '../utils/Createtoken.js';
 
 // Sign Up
 export const SignUp = async (req, res) => {
+  console.log(req.body);
 
   const { username, email, password } = req.body;
   try {
