@@ -7,23 +7,23 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 function App() {
-  const [user, setUser] = useState('');
-  const [error, setErorr] = useState('');
+  // const [user, setUser] = useState('');
+  // const [error, setErorr] = useState('');
 
-  useEffect(async () => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      try {
-        const res = await axios.post('api/users/', {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setUser(res.data);
-      } catch (error) {
-        setErorr('Failed to fetch user data');
-        localStorage.removeItem('token');
-      }
-    }
-  });
+  // useEffect(async () => {
+  //   const token = localStorage.getItem('token');
+  //   if (token) {
+  //     try {
+  //       const res = await axios.post('api/users/', {
+  //         headers: { Authorization: `Bearer ${token}` },
+  //       });
+  //       setUser(res.data);
+  //     } catch (error) {
+  //       setErorr('Failed to fetch user data');
+  //       localStorage.removeItem('token');
+  //     }
+  //   }
+  // });
 
   return (
     <>
