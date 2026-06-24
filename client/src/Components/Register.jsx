@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Mail, User, UserPlus, Lock, Eye } from 'lucide-react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Register() {
   const [form, setForm] = useState({
@@ -17,14 +17,15 @@ function Register() {
     });
   };
 
-  // };
+  const redirect = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post('/api/users/register', form);
 
     try {
+      await axios.post('/api/users/register', form);
       console.log('موفقانه راجستر شدید');
+      redirect('/');
     } catch (error) {
       console.log(error);
     }

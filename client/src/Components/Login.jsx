@@ -4,9 +4,7 @@ import Swal from 'sweetalert2';
 import { AlertCircle, Eye, Lock, LogIn, Mail, User } from 'lucide-react';
 import axios from 'axios';
 
-function Login({ setUser }) {
-  const navigate = useNavigate();
-
+function Login() {
   const [form, setForm] = useState({
     email: '',
     password: '',
@@ -25,11 +23,13 @@ function Login({ setUser }) {
     e.preventDefault();
 
     try {
-      await axios.post('/api/users/', form);
+      const res = await axios.post('/api/users/', form);
+      localStorage.setItem('token', res.data.token);
       console.log('Login successfull');
+      console.log(res.data);
       redirect('/dashboard');
     } catch (error) {
-      console.log(error);
+      setErorr(res.error || 'Login Failed!');
     }
   };
 
@@ -44,7 +44,9 @@ function Login({ setUser }) {
           </div>
 
           <h2 className="text-2xl font-bold mb- text-center">Login</h2>
-          <p className="py-4">Enter your credential to access the system</p>
+          <p className="py-4 italic text-slate-500">
+            Enter your credential to access the system
+          </p>
 
           {/* Conditional Rendering  */}
           {/* <div className="mb-4 flex items-center gap-2 p-4 bg-rose-50 border border-rose-50">
